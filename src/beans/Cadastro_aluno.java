@@ -1,18 +1,43 @@
 package beans;
 
 import java.util.List;
-import papelariaaluno.cadastro;
 
 
-public class Cadastro_aluno extends cadastro {
- public String escola; 
- public String serie;
 
-    public Cadastro_aluno(String escola, String serie, int num_cadastro, String nome, String Endereco, String DataNasc, String NumeroCell) {
-        super(num_cadastro, nome, Endereco, DataNasc, NumeroCell);
+public class Cadastro_aluno{
+
+    public static void add(Cadastro_aluno cadastroAlunos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+        public int num_cadastro;
+        public String nome;
+        public String Endereco;
+        public String DataNasc;
+        public String NumeroCell;
+        public String escola; 
+        public String serie;
+
+    public Cadastro_aluno(int num_cadastro, String nome, String Endereco, String DataNasc, String NumeroCell, String escola, String serie) {
+        this.num_cadastro = num_cadastro;
+        this.nome = nome;
+        this.Endereco = Endereco;
+        this.DataNasc = DataNasc;
+        this.NumeroCell = NumeroCell;
         this.escola = escola;
         this.serie = serie;
     }
+
+  
+   
+
+    public Cadastro_aluno() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    }
+
+  
+    
+    
     public String getEscola() {
         return escola;
     }

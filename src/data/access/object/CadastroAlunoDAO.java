@@ -36,6 +36,7 @@ public class CadastroAlunoDAO {
         statement.setString(4, cadastroAluno.getNome());
         statement.setString(5, cadastroAluno.getNumeroCell());
         statement.setString(6, cadastroAluno.getSerie());
+        statement.setInt(6, cadastroAluno.getNum_cadastro());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
@@ -57,10 +58,15 @@ public class CadastroAlunoDAO {
              statement = conexao.prepareStatement(sql);
              resultset = statement.executeQuery();
              while(resultset.next()){
-                 Cadastro_aluno cadastroAlunos = new Cadastro_aluno();
-                 cadastroAlunos.setDataNasc(resultset.getString("data de nascimento"));
-                 
-                 Cadastro_aluno.add(cadastroAlunos);
+                 Cadastro_aluno cadastroAluno = new Cadastro_aluno();
+                 cadastroAluno.setDataNasc(resultset.getString("data de nascimento"));
+                 cadastroAluno.setEndereco(resultset.getString("endereço"));
+                 cadastroAluno.setEscola(resultset.getString("escola"));
+                 cadastroAluno.setNum_cadastro(resultset.getInt("numero cadastro"));                 
+                 cadastroAluno.setNome(resultset.getString("nome"));
+                 cadastroAluno.setNumeroCell(resultset.getString("numero de cell"));
+                 cadastroAluno.setSerie(resultset.getString("serie"));   
+                 Cadastro_aluno.add(cadastroAluno);
              }
          }catch(SQLException e ){
              System.out.println("erro "+e);

@@ -1,5 +1,6 @@
 package data.access.object;
 
+import beans.Itens_pedido;
 import conexaobanco.ConexaoComMySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,14 +48,14 @@ public class PedidoDAO {
          String sql = "SELECT * FROM categoria";
          PreparedStatement statement = null;
          ResultSet resultset = null;
-         List<Pedido> categorias = new ArrayList<>();
+         List<Pedido> pedidos = new ArrayList<>();
          try{
              statement = conexao.prepareStatement(sql);
              resultset = statement.executeQuery();
              while(resultset.next()){
                  Pedido pedido = new Pedido();
-                 pedido.setDescricao(resultset.getString("descricao"));
-                 categorias.add(categoria);
+                pedido.setPedido(resultset.getInt("numero pedido"));
+                 pedido.add(pedido);
              }
          }catch(SQLException e ){
              System.out.println("erro "+e);
@@ -62,17 +63,16 @@ public class PedidoDAO {
          finally{
              ConexaoComMySQL.FecharConexao();
          }
-         return categorias;
+         return pedidos;
     }
     
     //UPDATE
-    public boolean update (Categoria categoria){ 
+    public boolean update (Pedido pedido){ 
         String sql = "UPDATE categoria SET descricao = ? WHERE id= ?";
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setString(1, categoria.getDescricao());
-        statement.setInt(2, categoria.getId());
+        statement.setInt(1, pedido.getPedido());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
@@ -85,12 +85,12 @@ public class PedidoDAO {
     }
     
     //DELETE
-    public boolean delete (Categoria categoria){
+    public boolean delete (Pedido pedido){
         String sql = "DELETE FROM categoria WHERE id = ?";
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setInt(1, categoria.getId());
+        statement.setInt(1, pedido.getPedido());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){

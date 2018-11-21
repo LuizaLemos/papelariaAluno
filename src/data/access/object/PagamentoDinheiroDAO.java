@@ -1,5 +1,6 @@
 package data.access.object;
 
+import beans.pagamento_dinheiro;
 import conexaobanco.ConexaoComMySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import beans.Produto;
+import beans.pagamento_dinheiro;
 
 /**
  *
@@ -17,24 +18,22 @@ import beans.Produto;
 //classe Data Acess Object. Criar uma classe DOA para cada classe bean.
 //Exemplo com classe Categoria.
 
-public class ProdutoDAO {
+public class PagamentoDinheiroDAO {
     private Connection conexao=null;
 
-    public ProdutoDAO() {
+    public PagamentoDinheiroDAO() {
     conexao = ConexaoComMySQL.getConexaoMySQL();
     }
     
     //inserir
-    public boolean insert(Produto produtos){ 
-        String sql = "INSERT INTO categoria (id, nome_produto, qtd_pro, preço, tipo_Produto) VALUES (?,?,?,?,?)";
+    public boolean insert(pagamento_dinheiro pagaDinheiro){ 
+        String sql = "INSERT INTO  Pedido (data, hora, qtd, nome_produto) VALUES (?,?,?,?)";
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setString(1, produtos.getMarca());
-        statement.setString(2, produtos.getNomePro());
-        statement.setString(3, produtos.getPreco());
-        statement.setString(1, produtos.getTamanhoProduto());
-        statement.setInt(1, produtos.getCodProduto());
+        statement.setDouble(2, pagaDinheiro.getPreco());
+        statement.setDouble(3, pagaDinheiro.getQtd_do_dinheiro());
+        statement.setDouble(4, pagaDinheiro.getTroco());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
@@ -47,22 +46,20 @@ public class ProdutoDAO {
     }
     
     //SELECT
-    public List<Produto> select(){ 
+    public List<pagamento_dinheiro> select(){ 
          String sql = "SELECT * FROM categoria";
          PreparedStatement statement = null;
          ResultSet resultset = null;
-         List<Produto> produtos = new ArrayList<>();
+         List<pagamento_dinheiro> pagardinheiro = new ArrayList<>();
          try{
              statement = conexao.prepareStatement(sql);
              resultset = statement.executeQuery();
              while(resultset.next()){
-                Produto produto = new Produto();
-                produto.setMarca(resultset.getString("Marca"));
-                produto.setCodProduto(resultset.getInt("Codigo Produto"));
-                produto.setNomePro(resultset.getString("Nome Produto"));
-                produto.setPreco(resultset.getString("Preço"));
-                produto.setTamanhoProduto(resultset.getString("Tamanho do Produto"));
-                Produto.add(produtos);
+                pagamento_dinheiro pagarDinheiro = new pagamento_dinheiro();
+                pagarDinheiro.setPreco(resultset.getDouble("preco"));
+                pagarDinheiro.setQtd_do_dinheiro(resultset.getDouble("qtd dinheiro do cliente"));
+                pagarDinheiro.setTroco(resultset.getDouble("troco"));
+                pagarDinheiro.add(pagarDinheiro);
              }
          }catch(SQLException e ){
              System.out.println("erro "+e);
@@ -70,20 +67,18 @@ public class ProdutoDAO {
          finally{
              ConexaoComMySQL.FecharConexao();
          }
-         return produtos;
+         return pagardinheiro;
     }
     
     //UPDATE
-    public boolean update (Produto produtos){ 
+    public boolean update (pagamento_dinheiro pagaDinheiro){ 
         String sql = "UPDATE categoria SET descricao = ? WHERE id= ?";
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setString(1, produtos.getMarca());
-        statement.setString(2, produtos.getNomePro());
-        statement.setString(3, produtos.getPreco());
-        statement.setString(1, produtos.getTamanhoProduto());
-        statement.setInt(1, produtos.getCodProduto());
+        statement.setDouble(2, pagaDinheiro.getPreco());
+        statement.setDouble(3, pagaDinheiro.getQtd_do_dinheiro());
+        statement.setDouble(4, pagaDinheiro.getTroco());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
@@ -96,16 +91,14 @@ public class ProdutoDAO {
     }
     
     //DELETE
-    public boolean delete (Produto produtos){
+    public boolean delete (pagamento_dinheiro pagaDinheiro){
         String sql = "DELETE FROM categoria WHERE id = ?";
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setString(1, produtos.getMarca());
-        statement.setString(2, produtos.getNomePro());
-        statement.setString(3, produtos.getPreco());
-        statement.setString(1, produtos.getTamanhoProduto());
-        statement.setInt(1, produtos.getCodProduto());
+        statement.setDouble(2, pagaDinheiro.getPreco());
+        statement.setDouble(3, pagaDinheiro.getQtd_do_dinheiro());
+        statement.setDouble(4, pagaDinheiro.getTroco());
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
@@ -117,3 +110,5 @@ public class ProdutoDAO {
         }
     }
 }
+
+
