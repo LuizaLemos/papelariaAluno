@@ -23,6 +23,10 @@ public class CadastroAlunoDAO {
     public CadastroAlunoDAO() {
     conexao = ConexaoComMySQL.getConexaoMySQL();
     }
+
+    public CadastroAlunoDAO(String alexandre, String gfjgfk, String string, String string0, String ifro, String ano) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     //inserir
     public boolean insert(Cadastro_aluno cadastroAluno){ 
@@ -30,13 +34,14 @@ public class CadastroAlunoDAO {
         PreparedStatement statement = null;
         try{
         statement = conexao.prepareStatement(sql);
-        statement.setString(1, cadastroAluno.getDataNasc());
-        statement.setString(2, cadastroAluno.getEndereco());
-        statement.setString(3, cadastroAluno.getEscola());
+        statement.setInt(7, cadastroAluno.getNum_cadastro());
         statement.setString(4, cadastroAluno.getNome());
+        statement.setString(2, cadastroAluno.getEndereco());
+        statement.setString(1, cadastroAluno.getDataNasc());
         statement.setString(5, cadastroAluno.getNumeroCell());
+        statement.setString(3, cadastroAluno.getEscola());
         statement.setString(6, cadastroAluno.getSerie());
-        statement.setInt(6, cadastroAluno.getNum_cadastro());
+        
         statement.executeUpdate();
         return true;
     }catch (SQLException e){
