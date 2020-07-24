@@ -22,13 +22,14 @@ public class ConexaoComMySQL {
 
 // Carregando o JDBC Driver padrão
             String driverName = "com.mysql.jdbc.Driver";      //encontra-se na biblioteca                  
-
+           
+         
             Class.forName(driverName);
 
 // Configurando a nossa conexão com um banco de dados//
-            String serverName = "localhost";    //caminho do servidor do BD
+            String serverName = "127.0.0.1:3306";    //caminho do servidor do BD
 
-            String mydatabase = "papelaria:3306";        //nome do seu banco de dados
+            String mydatabase = "papelaria";        //nome do seu banco de dados
 
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;//server:numeroDaPorta
 
@@ -45,7 +46,7 @@ public class ConexaoComMySQL {
 
             } else {
 
-                status = ("STATUS: N�o foi possivel realizar conexão");
+                status = ("STATUS: Não foi possivel realizar conexão");
 
             }
 
@@ -60,7 +61,7 @@ public class ConexaoComMySQL {
         } catch (SQLException e) {
 
 //Não conseguindo se conectar ao banco
-            System.out.println("N�o foi possivel conectar ao Banco de Dados.");
+            System.out.println("Não foi possivel conectar ao Banco de Dados.");
 
             return null;
         }

@@ -5,17 +5,29 @@
  */
 package papelariaaluno;
 
-/**
- *
- * @author pvhal
- */
+import beans.Cadastro_aluno;
+import beans.Produto;
+import conexaobanco.ConexaoComMySQL;
+import data.access.object.CadastroAlunoDAO;
+import data.access.object.ProdutoDAO;
+
+
 public class PapelariaAluno {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        ConexaoComMySQL conexao = new ConexaoComMySQL();
+        System.out.println(ConexaoComMySQL.getConexaoMySQL());
+        System.out.println(ConexaoComMySQL.status);      
+                
+       //Cadastro_aluno aluno1 = new Cadastro_aluno(1,"alexandre","gfjgfk","23434","455656765","ifro","2ano");
+       //CadastroAlunoDAO Aluno1 = new CadastroAlunoDAO();
+       //Aluno1.insert(aluno1);
+       
+       Produto prod = new Produto("sabao","500g","omo","23.00",10);
+       ProdutoDAO produ1 = new ProdutoDAO();
+       produ1.insert(prod);
     }
     
 }
